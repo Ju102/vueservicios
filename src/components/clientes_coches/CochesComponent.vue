@@ -22,9 +22,9 @@
 
 <script>
 
-import axios from 'axios';
-import Global from '../../Global';
-let urlApi = Global.urlApiCoches;
+import ServiceCoches from './../../services/ServiceCoches'
+
+const cochesService = new ServiceCoches();
 
 export default {
     name: "CochesComponent",
@@ -34,14 +34,10 @@ export default {
         }
     },
     mounted() {
-        let request = "webresources/coches";
-        // Las variables declaradas fuera del export no utilizan this
-        let url = urlApi + request;
-
-        axios.get(url).then(response => {
-            console.log("Obteniendo lista de coches");
-            this.coches = response.data;
-        })
+        // Una promesa no es un método, es un objeto
+        cochesService.getCoches("Coches").then(result => {
+            this.coches = result;
+        });
     }
 }
 </script>

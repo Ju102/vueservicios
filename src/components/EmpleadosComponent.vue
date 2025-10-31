@@ -1,13 +1,13 @@
 <template>
-    <div class="container p-5" style="background-color: lightblue;">
-        <h2>Empleados</h2>
+    <div class="container p-5 bg-dark">
+        <h2 class="mb-5 text-white">Empleados</h2>
         <form v-on:submit.prevent="hacerBusqueda()">
             <select class="form-select w-75 me-auto ms-auto" v-model="busqueda">
                 <option value="-1">-- Seleccione un empleado --</option>
                 <option v-for="empleado in empleados" :key="empleado" :value="empleado.idEmpleado">{{ empleado.apellido
                     }}</option>
             </select>
-            <button class="btn btn-primary w-25 mt-3">Buscar</button>
+            <button class="btn btn-primary w-25 mt-3 fw-bold">Buscar</button>
         </form>
         <hr v-if="empleado != null" />
         <table class="table table-bordered" v-if="empleado != null">
@@ -35,10 +35,9 @@
 
 <script>
 
-import axios from 'axios';
-import Global from './../Global'
+import ServiceEmpleados from './../services/ServiceEmpleados';
 
-let urlEmpleados = Global.urlApiEmpleados;
+const servicio = new ServiceEmpleados();
 
 export default {
     name: "EmpleadosComponent",
@@ -50,24 +49,18 @@ export default {
         }
     },
     methods: {
-        loadEmpleados() {
-            let request = "api/Empleados";
-            console.log("Obteniendo lista de empleados...");
-            axios.get(urlEmpleados + request).then(response => {
-                console.log("Lista de empleados cargada.");
-                this.empleados = response.data;
-            });
-        },
         hacerBusqueda() {
-            let request = "api/Empleados/" + this.busqueda;
-
-            axios.get(urlEmpleados + request).then(response => {
-                this.empleado = response.data;
-            })
+            servicio.findEmpleadosById(this.busqueda).then(result => {
+                console.log("Empleado cargado.");
+                this.empleado = result;
+            });
         }
     },
     mounted() {
-        this.loadEmpleados();
+        servicio.getEmpleados().then(result => {
+            console.log("Lista de empleados cargada.");
+            this.empleados = result;
+        });
     }
 }
 </script>

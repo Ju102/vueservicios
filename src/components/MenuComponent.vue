@@ -1,33 +1,35 @@
 <template>
-    <nav class="navbar navbar-expand-lg py-4" style="background-color: darkcyan;">
+    <nav class="navbar navbar-expand-lg py-4 fw-bold" style="background-color: darkcyan;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">SERVICIOS</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <router-link class="nav-link" aria-current="page" to="/">Home</router-link>
+                        <router-link class="nav-link text-white" to="/">Home</router-link>
                     </li>
 
                     <li class="nav-item">
-                        <router-link class="nav-link" aria-current="page" to="/empleados">Empleados</router-link>
+                        <router-link class="nav-link text-white" to="/empleados">Empleados</router-link>
                     </li>
 
                     <li class="nav-item">
-                        <router-link class="nav-link" aria-current="page" to="/customers">Clientes</router-link>
+                        <router-link class="nav-link text-white" to="/customers">Clientes</router-link>
+                    </li>
+
+                    <li class="nav-item">
+                        <router-link class="nav-link text-white" to="/cars">Coches</router-link>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Lista
+                            Oficios
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
+                        <ul class="dropdown-menu bg-dark">
+                            <li v-for="oficio in oficios" :key="oficio">
+                                <router-link class="nav-link text-white" :to='"/oficio/" + oficio'>{{ oficio
+                                    }}</router-link>
                             </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -37,8 +39,24 @@
 </template>
 
 <script>
-export default {
 
+import ServiceEmpleados from './../services/ServiceEmpleados';
+
+const service = new ServiceEmpleados();
+
+export default {
+    name: "MenuComponent",
+    data() {
+        return {
+            oficios: []
+        }
+    },
+    mounted() {
+        service.getOficios().then(result => {
+            console.log("Lista de oficios cargada.");
+            this.oficios = result;
+        })
+    }
 }
 </script>
 

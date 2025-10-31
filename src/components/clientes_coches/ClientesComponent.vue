@@ -31,7 +31,7 @@
                 </tr>
             </tbody>
         </table>
-        <h3>{{ mensaje }}</h3>
+        <h3 class="text-white">{{ mensaje }}</h3>
         <hr />
         <h2>Lista de Clientes</h2>
         <table>
@@ -112,12 +112,12 @@ div {
     padding: 30px;
     max-width: 1400px;
     margin: 0 auto;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: darkslategrey;
     min-height: 100vh;
 }
 
 form {
-    background: white;
+    background: darkcyan;
     padding: 25px 30px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -135,7 +135,7 @@ form:hover {
 
 label {
     font-weight: 600;
-    color: #2c3e50;
+    color: whitesmoke;
     font-size: 1.1em;
 }
 
@@ -188,7 +188,7 @@ hr {
 }
 
 h2 {
-    color: #2c3e50;
+    color: whitesmoke;
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 30px;
